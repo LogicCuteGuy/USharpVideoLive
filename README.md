@@ -16,6 +16,8 @@ A basic video player made for VRChat using Udon and UdonSharp. Supports normal v
 - Support for YouTube timestamped URL's (youtube.com?v=\<video\>&t=\<seconds\>)
 - Volume slider
 - Reload button
+- Resync button for video synchronization
+- Minimal UI option for guests
 - Supports YouTube link resolution in the editor the same as in VRC
 
 ## Installation
