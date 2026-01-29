@@ -1,7 +1,7 @@
-# USharpVideo
+# USharpVideoLive
 A basic video player made for VRChat using Udon and UdonSharp. Supports normal videos and live streams.
 
-![image](https://user-images.githubusercontent.com/36685500/121757261-d4acc480-cad1-11eb-9455-c61b676b9e99.png)
+![image](https://github.com/user-attachments/assets/62197752-7130-4469-a7ac-0eb62ff8af97)
 
 ### See the [Wiki](https://github.com/MerlinVR/USharpVideo/wiki) for more info on advanced configuration and tips + guides
 
