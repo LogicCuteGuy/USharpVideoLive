@@ -11,13 +11,8 @@ namespace UdonSharp.Video
     [DefaultExecutionOrder(10)]
     [UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
     [AddComponentMenu("Udon Sharp/Video/UI/Video Control Handler")]
-    public class VideoControlHandler : UdonSharpBehaviour
+    public class VideoControlHandler : VideoControlHandlerBase
     {
-        /// <summary>
-        /// The video player this UI instance controls and pulls info from
-        /// </summary>
-        [PublicAPI, NotNull]
-        public USharpVideoPlayer targetVideoPlayer;
         
 #pragma warning disable CS0649
         [SerializeField]
@@ -79,12 +74,6 @@ namespace UdonSharp.Video
         [SerializeField]
         private VolumeController volumeController;
 
-        [Header("Style Colors")]
-        public Color redGraphicColor = new Color(0.632f, 0.19f, 0.19f);
-        public Color whiteGraphicColor = new Color(0.9433f, 0.9433f, 0.9433f);
-        public Color buttonBackgroundColor = new Color(1f, 1f, 1f, 1f);
-        public Color buttonActivatedColor = new Color(1f, 1f, 1f, 1f);
-        public Color iconInvertedColor = new Color(1f, 1f, 1f, 1f);
 #pragma warning restore CS0649
 
         private void OnEnable()
@@ -117,7 +106,7 @@ namespace UdonSharp.Video
             UpdateMaster();
         }
 
-        public void OnVideoPlayerOwnerTransferred()
+        public override void OnVideoPlayerOwnerTransferred()
         {
             UpdateVideoOwner();
         }
@@ -162,7 +151,7 @@ namespace UdonSharp.Video
 
         string _currentStatusText = "";
 
-        public void SetStatusText(string newStatus)
+        public override void SetStatusText(string newStatus)
         {
             _currentStatusText = newStatus;
             if (statusTextField) statusTextField.text = _currentStatusText;
@@ -170,7 +159,7 @@ namespace UdonSharp.Video
             _lastTime = int.MaxValue;
         }
         
-        public void SetLocked(bool locked)
+        public override void SetLocked(bool locked)
         {
             if (locked)
             {
@@ -197,7 +186,7 @@ namespace UdonSharp.Video
             }
         }
         
-        public void SetPaused(bool paused)
+        public override void SetPaused(bool paused)
         {
             bool videoMode = targetVideoPlayer.IsInVideoMode();
 
@@ -208,7 +197,7 @@ namespace UdonSharp.Video
             if (pauseStopObject) pauseStopObject.SetActive(!paused);
         }
 
-        public void SetLooping(bool looping)
+        public override void SetLooping(bool looping)
         {
             if (looping)
             {
@@ -222,22 +211,22 @@ namespace UdonSharp.Video
             }
         }
 
-        public void SetVolume(float volume)
+        public override void SetVolume(float volume)
         {
             if (volumeController) volumeController.SetVolume(volume);
         }
 
-        public void SetMuted(bool muted)
+        public override void SetMuted(bool muted)
         {
             if (volumeController) volumeController.SetMuted(muted);
         }
 
-        public void OnVolumeSliderChange(float volume)
+        public override void OnVolumeSliderChange(float volume)
         {
             targetVideoPlayer.SetVolume(volume);
         }
 
-        public void OnMutePress(bool muted)
+        public override void OnMutePress(bool muted)
         {
             targetVideoPlayer.SetMuted(muted);
         }
@@ -246,7 +235,7 @@ namespace UdonSharp.Video
         /// Adds a URL to the history display so people can copy it
         /// </summary>
         /// <param name="url"></param>
-        public void AddURLToHistory(VRCUrl url)
+        public override void AddURLToHistory(VRCUrl url)
         {
             if (currentURLField)
             {
@@ -257,13 +246,13 @@ namespace UdonSharp.Video
             }
         }
 
-        public void SetToVideoPlayerMode()
+        public override void SetToVideoPlayerMode()
         {
             if (syncController)
                 syncController.SetVideoVisual();
         }
 
-        public void SetToStreamPlayerMode()
+        public override void SetToStreamPlayerMode()
         {
             if (syncController)
                 syncController.SetStreamVisual();
@@ -379,6 +368,11 @@ namespace UdonSharp.Video
         public void OnReloadButtonPressed()
         {
             targetVideoPlayer.Reload();
+        }
+
+        public void OnReSyncButtonPressed()
+        {
+            targetVideoPlayer.ForceSyncVideo();
         }
 
         public void OnLoopButtonPressed()

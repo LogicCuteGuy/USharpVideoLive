@@ -714,6 +714,10 @@ namespace UdonSharp.Video
                 _videoPlayerManager.SetTime(offsetTime);
                 LogMessage($"Syncing video to {offsetTime:N2}");
             }
+            else if (IsRTSPStream())
+            {
+                Reload();
+            }
         }
 
         private void StartVideoLoad(VRCUrl url)

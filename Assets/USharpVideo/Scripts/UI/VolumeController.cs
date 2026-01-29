@@ -11,7 +11,7 @@ namespace UdonSharp.Video
     [UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
     public class VolumeController : UdonSharpBehaviour
     {
-        VideoControlHandler controlHandler;
+        VideoControlHandlerBase controlHandler;
 
         public Slider slider;
 
@@ -27,7 +27,7 @@ namespace UdonSharp.Video
             UpdateVolumeIcon();
         }
 
-        public void SetControlHandler(VideoControlHandler handler)
+        public void SetControlHandler(VideoControlHandlerBase handler)
         {
             controlHandler = handler;
         }
